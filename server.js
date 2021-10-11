@@ -1,3 +1,4 @@
+const { appendFile } = require('fs');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
@@ -11,3 +12,7 @@ const db = mysql.createConnection({
   },
   console.log(`Connected to the employee_db database.`)
 );
+
+app.use((req, res) => {
+  res.status(404).end();
+});

@@ -1,0 +1,24 @@
+{
+  "name": "employee-tracker-node-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curriecoder/employee-tracker-node-db.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/curriecoder/employee-tracker-node-db/issues"
+  },
+  "homepage": "https://github.com/curriecoder/employee-tracker-node-db#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.0"
+  }
+}
