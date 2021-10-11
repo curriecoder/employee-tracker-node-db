@@ -1,18 +1,19 @@
-const PORT = process.env.PORT || 3001;
 const mysql = require("mysql2");
 
-
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-},
-console.log('Connected to employee_db!')
+const db = mysql.createConnection(
+  {
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASS,
+    database: process.env.NAME,
+  },
+  console.log(`Connected to the employee_db database.`)
 );
 
-
-
-app.use((req, res) => {
-  res.status(404).end();
+db.query("SELECT * FROM department", (err, res) => {
+  console.log("DEPARTMENTS:");
+  res.forEach((department) => {
+    console.log(`ID: ${department.id} | Name: ${department.name}`);
+  })
+  start();
 });
