@@ -49,7 +49,7 @@ function addDepartment() {
   inquire.prompt(depPrompt).then((response) => {
     console.log(response);
     db.query(
-      `INSERT INTO department(name) VALUES (${response.addDept})`,
+      `INSERT INTO department(name) VALUES ('${response.addDept}')`,
       function (err, result) {
         if (err) {
           throw err;
@@ -112,7 +112,7 @@ function addRole() {
         }
       });
       db.query(
-        `INSERT INTO role(title, salary, department_id) VALUES (${response.addRoleTitle}, ${response.addRoleSalary}, ${addRoleId})`,
+        `INSERT INTO role(title, salary, department_id) VALUES ('${response.addRoleTitle}', '${response.addRoleSalary}', '${addRoleId}')`,
         function (err, result) {
           if (err) {
             throw err;
@@ -122,11 +122,59 @@ function addRole() {
       );
     });
   });
-}
+};
 
-function addEmployee() {}
+const emplPrompt = [
+  {
+    type: "input",
+    name: "addEmpFName",
+    message: "Enter first name of new employee",
+    validate: (input) => {
+      if (input) {
+        return true;
+      }
+      console.log("First name cannot be blank");
+      return false;
+    },
+  },
+  {
+    type: "input",
+    name: "addEmpLName",
+    message: "Enter last name of new employee",
+    validate: (input) => {
+      if (input) {
+        return true;
+      }
+      console.log("Last name cannot be blank");
+      return false;
+    },
+  },
+  {
+    type: "list",
+    name: "addEmpRole",
+    message: "Select role of new employee",
+    choices: [],
+  },
+  {
+    type: "list",
+    name: "addEmpMngr",
+    message: "Select the manager of new employee",
+    choices: [],
+  },
+];
 
-function updateRole() {}
+function addEmployee() {
+  emplPrompt[2].choices = [];
+  emplPrompt[3].choices = [];
+  db.query('')
+  inquire
+    .prompt(emplPrompt)
+    .then((response) => {
+      db.query(`INSERT INTO employee(first_name, last_name)`)
+    })
+};
+
+function updateRole() {};
 
 module.exports = {
   viewDepartments,
