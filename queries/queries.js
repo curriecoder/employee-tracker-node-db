@@ -31,7 +31,7 @@ function viewEmployees() {
 };
 
 
-const addDepartment = [
+const depPrompt = [
   {
     type: 'input',
     name: 'addDept',
@@ -49,13 +49,35 @@ const addDepartment = [
 
 function addDepartment() {
   inquirer
-    .prompt(addDepartment)
-    .then((response) => {
-      console.log(response);
-    })
+  .prompt(depPrompt)
+  .then((response) => {
+    console.log(response);
+  });
 };
 
-function addRole() {}
+const rolePrompt = [
+  {
+    type: "input",
+    name: "addRole",
+    message: "Enter new role name",
+    validate: (input) => {
+      if (input) {
+        return true;
+      } else {
+        console.log("Role name cannot be blank.");
+        return false;
+      }
+    }
+  }
+];
+
+function addRole() {
+  inquirer
+  .prompt(rolePrompt)
+  .then((response) => {
+    console.log(response);
+  });
+}
 
 function addEmployee() {}
 
