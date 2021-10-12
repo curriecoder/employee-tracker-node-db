@@ -21,12 +21,15 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  db.query("SELECT * FROM employee", function (err, result) {
-    if (err) {
-      throw err;
+  db.query(
+    "SELECT * FROM employee JOIN role ON employee.id=role.id",
+    function (err, result) {
+      if (err) {
+        throw err;
+      }
+      console.table(result);
     }
-    console.table(result);
-  });
+  );
 }
 
 const depPrompt = [
@@ -164,9 +167,7 @@ const emplPrompt = [
 ];
 
 function addEmployee() {
-  inquire
-  .prompt(emplPrompt)
-  .then((response) => {
+  inquire.prompt(emplPrompt).then((response) => {
     db.query(
       `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${response.addEmpFName}', '${response.addEmpLName}', '${response.addEmpRole}', '${response.addEmpMngr}')`
     );
@@ -174,7 +175,41 @@ function addEmployee() {
   });
 }
 
-function updateRole() {}
+const updatePrompt = [
+  {
+    type: "list",
+    name: "updateEmpSelect",
+    message: "Select an employee to update",
+    choices: [],
+  },
+  {
+    type: "list",
+    name: "updateEmpRole",
+    message:
+      "Select new role ID for employee (Human Resources-1, Marketing-2, Information Technology-3, Corporate-4)",
+    choices: [1, 2, 3, 4],
+  },
+];
+
+function updateRole() {
+  db.query(
+    "SELECT first_name, last_name FROM employee",
+    function (err, result) {
+      if (err) {
+        throw err;
+      }
+      result.forEach((employee) => {
+        updatePrompt[0].choices.push(
+        employee.first_name + " " + employee.last_name
+        );
+      });
+      inquire.prompt(updatePrompt).then((response) => {
+        console.log(response);
+        db.query(`UPDATE employee SET role_id = ${response.updateEmpRole}`);
+      });
+    }
+  );
+}
 
 function quit() {
   process.exit();
