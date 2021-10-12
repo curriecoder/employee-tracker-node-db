@@ -1,4 +1,3 @@
--- TODO fix Out of range value for column 'salary' at row 1
 INSERT INTO department (name) 
 VALUES 
       ("Human Resources"),

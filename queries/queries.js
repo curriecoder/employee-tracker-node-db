@@ -152,43 +152,33 @@ const emplPrompt = [
   {
     type: "list",
     name: "addEmpRole",
-    message: "Select role of new employee",
-    choices: [
-      "Human Resources",
-      "Marketing",
-      "Information Technology",
-      "Corporate",
-    ],
+    message:
+      "Select role ID of new employee (Human Resources-1, Marketing-2, Information Technology-3, Corporate-4)",
+    choices: [1, 2, 3, 4],
   },
   {
-    type: "list",
+    type: "input",
     name: "addEmpMngr",
     message: "Input the manager ID for new employee's manager",
-    choices: [],
   },
 ];
 
 function addEmployee() {
-  db.query(
-    `SELECT * FROM employee WHERE manager_id IS NULL`,
-    function (err, result) {
-      if (err) {
-        throw err;
-      }
-      console.log(result);
-      emplPrompt[3].choices = result;
-        inquire.prompt(emplPrompt).then((response) => {
-          db.query(
-            `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${response.addEmpFName}', '${response.addEmpLName}', '${response.addEmpRole}', '${response.addEmpMngr}')`
-          );
-        });
-    }
-  );
+  inquire
+  .prompt(emplPrompt)
+  .then((response) => {
+    db.query(
+      `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${response.addEmpFName}', '${response.addEmpLName}', '${response.addEmpRole}', '${response.addEmpMngr}')`
+    );
+    console.log("Employee added");
+  });
 }
 
 function updateRole() {}
 
-function quit() {}
+function quit() {
+  process.exit();
+}
 
 module.exports = {
   viewDepartments,
@@ -198,4 +188,5 @@ module.exports = {
   addRole,
   addEmployee,
   updateRole,
+  quit,
 };

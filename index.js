@@ -60,6 +60,7 @@ function start() {
         break;
 
       case "Quit":
+        queries.quit();
         break;
 
       default:
