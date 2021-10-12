@@ -1,4 +1,4 @@
-
+-- TODO fix Out of range value for column 'salary' at row 1
 INSERT INTO department (name) 
 VALUES 
       ("Human Resources"),
@@ -8,11 +8,11 @@ VALUES
 
 INSERT INTO role (title, salary, department_id) 
 VALUES 
-      ("Analyst", 70000, 3),
-      ("Communications Associate", 50000, 2),
-      ("Social Media Manager", 50000, 2),
-      ("Director", 100000, 1),
-      ("Director", 100000, 4);
+      ("Analyst", 70000.00, 3),
+      ("Communications Associate", 50000.00, 2),
+      ("Social Media Manager", 50000.00, 2),
+      ("Director", 100000.00, 1),
+      ("Director", 100000.00, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 

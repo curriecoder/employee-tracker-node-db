@@ -25,6 +25,7 @@ const menuOptions = [
 
 // function to start the app
 function start() {
+  console.log("Welcome to the Employee Tracker");
   inquirer
   .prompt(menuOptions)
   .then((response) => {

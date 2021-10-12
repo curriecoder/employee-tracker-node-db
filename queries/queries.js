@@ -122,7 +122,7 @@ function addRole() {
       );
     });
   });
-};
+}
 
 const emplPrompt = [
   {
@@ -153,28 +153,42 @@ const emplPrompt = [
     type: "list",
     name: "addEmpRole",
     message: "Select role of new employee",
-    choices: [],
+    choices: [
+      "Human Resources",
+      "Marketing",
+      "Information Technology",
+      "Corporate",
+    ],
   },
   {
     type: "list",
     name: "addEmpMngr",
-    message: "Select the manager of new employee",
+    message: "Input the manager ID for new employee's manager",
     choices: [],
   },
 ];
 
 function addEmployee() {
-  emplPrompt[2].choices = [];
-  emplPrompt[3].choices = [];
-  db.query('')
-  inquire
-    .prompt(emplPrompt)
-    .then((response) => {
-      db.query(`INSERT INTO employee(first_name, last_name)`)
-    })
-};
+  db.query(
+    `SELECT * FROM employee WHERE manager_id IS NULL`,
+    function (err, result) {
+      if (err) {
+        throw err;
+      }
+      console.log(result);
+      emplPrompt[3].choices = result;
+        inquire.prompt(emplPrompt).then((response) => {
+          db.query(
+            `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${response.addEmpFName}', '${response.addEmpLName}', '${response.addEmpRole}', '${response.addEmpMngr}')`
+          );
+        });
+    }
+  );
+}
 
-function updateRole() {};
+function updateRole() {}
+
+function quit() {}
 
 module.exports = {
   viewDepartments,
