@@ -1,6 +1,9 @@
-// require inquirer
+// require modules
 const inquirer = require("inquirer");
-// const queries = require("./queries/queries");
+const queries = require("./queries/queries");
+const conTable = require("console.table")
+
+
 // create main menu promts
 const menuOptions = [
   {
@@ -25,61 +28,43 @@ function start() {
   inquirer
   .prompt(menuOptions)
   .then((response) => {
-    if (response.mainMenu === "View all departments") {
-      viewDepartments();
-    } else if (response.mainMenu === "View all roles") {
-      viewRoles();
-    } else if (response.mainMenu === "View all employees") {
-      viewEmployees();
-    } else if (response.mainMenu === "Add a department") {
-      addDepartment();
-    } else if (response.mainMenu === "Add a role") {
-      addRole();
-    } else if (response.mainMenu === "Add an employee") {
-      addEmployee();
-    } else if (response.mainMenu === "Update an employee role") {
-      updateRole();
-    } else if (response.mainMenu === "Quit") {
-      quit();
+    console.log(response);
+    switch (response.mainMenu) {
+      case "View all departments":
+        queries.viewDepartments();
+        break;
+
+      case "View all roles":
+        queries.viewRoles();
+        break;
+
+      case "View all employees":
+        queries.viewEmployees();
+        break;
+
+      case "Add a department":
+        queries.addDepartment();
+        break;
+
+      case "Add a role":
+        queries.addRole();
+        break;
+
+      case "Add an employee":
+        queries.addEmployee();
+        break;
+
+      case "Update an employee role":
+        queries.updateRole();
+        break;
+
+      case "Quit":
+        break;
+
+      default:
+        break;
     }
   });
 }
-
-const mysql = require("mysql2");
-
-const db = mysql.createConnection(
-  {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-  },
-  console.log(`Connected to the employee_db database.`)
-);
-
-function viewDepartments() {
-
-  db.query("SELECT * FROM department", (err, res) => {
-    console.log("DEPARTMENTS:");
-    res.forEach((department) => {
-      console.log(`ID: ${department.id} | Name: ${department.name}`);
-    });
-    start();
-  });
-}
-
-function viewRoles() {}
-
-function viewEmployees() {}
-
-function addDepartment() {}
-
-function addRole() {}
-
-function addEmployee() {}
-
-function updateRole() {}
-
-function quit() {}
 
 start();

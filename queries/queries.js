@@ -1,19 +1,27 @@
-const mysql = require("mysql2");
+const conTable = require("console.table");
+const db = require('../db/path')
 
-const db = mysql.createConnection(
-  {
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASS,
-    database: process.env.NAME,
-  },
-  console.log(`Connected to the employee_db database.`)
-);
+function viewDepartments() {
+  db.query("SELECT * FROM department", function (err, result) {
+    if (err) {
+      throw err;
+    }
+    console.table(result);
+  });
+}
 
-db.query("SELECT * FROM department", (err, res) => {
-  console.log("DEPARTMENTS:");
-  res.forEach((department) => {
-    console.log(`ID: ${department.id} | Name: ${department.name}`);
-  })
-  start();
-});
+function viewRoles() {}
+
+function viewEmployees() {}
+
+function addDepartment() {}
+
+function addRole() {}
+
+function addEmployee() {}
+
+function updateRole() {}
+
+function quit() {}
+
+module.exports = { viewDepartments };
