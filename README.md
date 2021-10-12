@@ -13,7 +13,7 @@ To install this application, run 'npm install' in your terminal.
 ## Usage
 To start the application, enter the command 'node index.js' after installing as instructed above. Use the arrow keys to navigate menus. To restart the program, hit 'crtl+c' and re run the start function.
 
-    ![screenshot](assets/images/screenshot.png)
+    (assets/images/screenshot.png)
     
 
 ## Credits
